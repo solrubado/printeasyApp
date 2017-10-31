@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="40dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="14dp"
+        android:layout_marginTop="14dp"
+        android:weightSum="2"
+        android:layout_marginLeft="14dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/filenamePrice"
+            android:layout_weight="1.5"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:text="File name" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@android:color/black"
+            android:layout_weight="0.5"
+            android:text="$12"
+            android:id="@+id/price"
+            android:layout_alignParentRight="true"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+
+</LinearLayout>
