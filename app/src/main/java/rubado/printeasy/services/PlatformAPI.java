@@ -15,6 +15,7 @@ import rubado.printeasy.Pojos.DocumentsPojo;
 import rubado.printeasy.Pojos.LoginPojo;
 import rubado.printeasy.Pojos.PaymentPojo;
 import rubado.printeasy.Pojos.PaymentsPojo;
+import rubado.printeasy.Pojos.PrinterQueuePojo;
 
 /**
  * Created by Sol Rubado on 10/04/2017.
@@ -45,4 +46,8 @@ public interface PlatformAPI {
     @Headers("Content-Type: application/json")
     @GET("deleteAndroid/{id}")
     Call<Void> deleteFileCall(@Path("id") String id);
+
+    @Headers("Content-Type: application/json")
+    @GET("isPrinterInUse")
+    Call<PrinterQueuePojo> isPrinterInUseCall();
 }

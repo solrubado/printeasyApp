@@ -41,6 +41,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import rubado.printeasy.Pojos.DocumentsPojo;
+import rubado.printeasy.Pojos.PrinterQueuePojo;
 import rubado.printeasy.PrintEasyApplication;
 import rubado.printeasy.R;
 import rubado.printeasy.adapters.FileRowAdapter;
@@ -142,6 +143,70 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.checkPrinter:
+                checkPrinterCall();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void checkPrinterCall() {
+        Call<PrinterQueuePojo> documentsCall = mApp.getAPI().isPrinterInUseCall();
+
+        documentsCall.enqueue(new Callback<PrinterQueuePojo>() {
+            @Override
+            public void onResponse(Call<PrinterQueuePojo> call, Response<PrinterQueuePojo> response) {
+                hideProgressBar();
+                if (response.code() >= 400 && response.code() <= 500) {
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(MainActivity.this, getString(R.string.user_error_message), Toast.LENGTH_LONG).show();
+
+                        }
+                    });
+                } else if (response.isSuccessful()) {
+                    PrinterQueuePojo queuePojo = response.body();
+                    String text="";
+                    if(queuePojo.getPrinterqueue().contains("is ready")){
+                        if(queuePojo.getPrinterqueue().contains("no entries")){
+                            text="La impresora esta lista para su uso";
+                        }else if(queuePojo.getPrinterqueue().contains("printing")){
+                            text="La impresora esta siendo usada en este momento";
+                        }
+                    }else{
+                        text="La impresora no esta disponible";
+                    }
+                    final String finalText = text;
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                            public void run() {
+                                Toast.makeText(MainActivity.this, finalText, Toast.LENGTH_LONG).show();
+                            }
+                        });
+
+                } else {
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(MainActivity.this, getString(R.string.user_error_message), Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PrinterQueuePojo> call, Throwable t) {
+                hideProgressBar();
+                Log.e("MainActivity", t.getMessage());
+
+            }
+
+        });
+    }
+
 
     public void getFiles() {
         Call<DocumentsPojo> documentsCall = mApp.getAPI().documentsCall();
