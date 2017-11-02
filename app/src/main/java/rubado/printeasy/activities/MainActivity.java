@@ -13,6 +13,7 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -27,6 +28,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.io.File;
@@ -48,6 +51,8 @@ public class MainActivity extends AppCompatActivity
     private ListView mFileLists;
     private PrintEasyApplication mApp;
     private FileRowAdapter sessionsAdapter;
+    private ProgressBar mProgressBar;
+    private CoordinatorLayout mContainerMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +60,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         mApp = (PrintEasyApplication) getApplication();
 
+        mProgressBar =(ProgressBar) findViewById(R.id.progress_main);
+        mContainerMain = (CoordinatorLayout) findViewById(R.id.containerMain);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -142,6 +149,7 @@ public class MainActivity extends AppCompatActivity
         documentsCall.enqueue(new Callback<DocumentsPojo>() {
             @Override
             public void onResponse(Call<DocumentsPojo> call, Response<DocumentsPojo> response) {
+                hideProgressBar();
                 if (response.code() >= 400 && response.code() <= 500) {
                     MainActivity.this.runOnUiThread(new Runnable() {
                         public void run() {
@@ -166,6 +174,7 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onFailure(Call<DocumentsPojo> call, Throwable t) {
+                hideProgressBar();
                 Log.e("MainActivity", t.getMessage());
 
             }
@@ -179,6 +188,7 @@ public class MainActivity extends AppCompatActivity
             case 0:
                 if (resultCode == RESULT_OK) {
                     // Get the Uri of the selected file
+                    showProgressBar();
                     Uri uri = data.getData();
                     // Get the path
                     String path = getPathFromURI(MainActivity.this,uri);
@@ -190,6 +200,17 @@ public class MainActivity extends AppCompatActivity
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+    private void showProgressBar() {
+        mProgressBar.setVisibility(View.VISIBLE);
+        mContainerMain.setVisibility(View.GONE);
+    }
+
+    private void hideProgressBar(){
+        mProgressBar.setVisibility(View.GONE);
+        mContainerMain.setVisibility(View.VISIBLE);
+    }
+
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public static String getPathFromURI(final Context context, final Uri uri) {
@@ -302,6 +323,7 @@ public class MainActivity extends AppCompatActivity
         userCall.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
+                hideProgressBar();
                 if (response.code() >= 400 && response.code() <= 500) {
                     Log.e("Login", response.code() + " " + response.message());
                     MainActivity.this.runOnUiThread(new Runnable() {
@@ -333,6 +355,7 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
+                hideProgressBar();
                 Log.e("Login Activity", t.getMessage());
 
             }
@@ -341,12 +364,14 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void deleteDocument(String id) {
+        showProgressBar();
         Log.e("Document id ", id);
         Call<Void> deleteFileCall = mApp.getAPI().deleteFileCall(id);
 
         deleteFileCall.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
+                hideProgressBar();
                 if (response.code() >= 400 && response.code() <= 500) {
                     Log.e("MainActivity", response.code() + " " + response.message());
                     MainActivity.this.runOnUiThread(new Runnable() {
@@ -378,6 +403,7 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
+                hideProgressBar();
                 Log.e("MainActivity", t.getMessage());
 
             }

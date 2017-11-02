@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import retrofit2.Call;
@@ -20,6 +22,8 @@ public class LoginActivity extends AppCompatActivity {
     private PrintEasyApplication mApp;
     private EditText userEmail;
     private EditText userPassword;
+    private ProgressBar mProgressBar;
+    private RelativeLayout mContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +32,8 @@ public class LoginActivity extends AppCompatActivity {
 
         mApp = (PrintEasyApplication) getApplication();
 
+        mProgressBar = (ProgressBar) findViewById(R.id.progress_login);
+        mContainer = (RelativeLayout) findViewById(R.id.loginContainer);
         userEmail = (EditText) findViewById(R.id.usernameET);
         userPassword = (EditText) findViewById(R.id.passwordET);
 
@@ -36,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showProgressBar();
                 if (!userEmail.getText().toString().equals("")) {
                     if (!userPassword.getText().toString().equals("")) {
                         // final ProgressBar loginProgress = (ProgressBar) findViewById(R.id.login_progress);
@@ -47,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<Void> call, Response<Void> response) {
                                 if (response.code() >= 400 && response.code() <= 500) {
+                                    hideProgressBar();
                                     Log.e("Login", response.code() + " " + response.message());
                                     LoginActivity.this.runOnUiThread(new Runnable() {
                                         public void run() {
@@ -58,7 +66,9 @@ public class LoginActivity extends AppCompatActivity {
                                 } else if (response.isSuccessful()) {
                                     Intent i = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(i);
+                                    finish();
                                 } else {
+                                    hideProgressBar();
                                     Log.e("LoginActivity", "Mensaje: " + response.code());
                                     LoginActivity.this.runOnUiThread(new Runnable() {
                                         public void run() {
@@ -72,6 +82,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             @Override
                             public void onFailure(Call<Void> call, Throwable t) {
+                                hideProgressBar();
                                 Log.e("Login Activity", t.getMessage());
                                 LoginActivity.this.runOnUiThread(new Runnable() {
                                     public void run() {
@@ -97,5 +108,15 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
+    }
+
+    private void showProgressBar() {
+        mProgressBar.setVisibility(View.VISIBLE);
+        mContainer.setVisibility(View.GONE);
+    }
+
+    private void hideProgressBar(){
+        mProgressBar.setVisibility(View.GONE);
+        mContainer.setVisibility(View.VISIBLE);
     }
 }
