@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import rubado.printeasy.Pojos.FilePojo;
 import rubado.printeasy.R;
+import rubado.printeasy.activities.MainActivity;
 
 /**
  * Created by MariaSol on 06/09/2016.
@@ -69,11 +70,22 @@ public class FileRowAdapter extends BaseAdapter {
 
         }
 
-        //handleButtonClick(convertView, position);
+        handleButtonClick(convertView, position);
 
         return convertView;
     }
 
+
+    private void handleButtonClick(View convertView, final int position) {
+        ImageView deleteBtn = (ImageView) convertView.findViewById(R.id.deleteBtn);
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)mContext).deleteDocument(mFileList.get(position).getId());
+
+            }
+        });
+    }
 
     private class MyViewHolder {
         TextView fileName;

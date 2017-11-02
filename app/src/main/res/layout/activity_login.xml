@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/header"
     android:id="@+id/containerLogin"
     tools:context=".activities.LoginActivity">
@@ -48,6 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColorHint="#fff"
+        app:passwordToggleEnabled="true"
         android:layout_below="@+id/usernameTI"
         android:layout_centerHorizontal="true">
 
@@ -56,6 +58,8 @@
             android:layout_height="wrap_content"
             android:hint="Contraseña"
             android:textColor="#ffff"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="#ffff"
             android:inputType="textPassword"
             android:textColorHint="#ffff"
             android:layout_below="@+id/passwordTI"

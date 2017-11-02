@@ -10,6 +10,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 import rubado.printeasy.Pojos.DocumentsPojo;
 import rubado.printeasy.Pojos.LoginPojo;
 import rubado.printeasy.Pojos.PaymentPojo;
@@ -40,4 +41,8 @@ public interface PlatformAPI {
     @Headers("Content-Type: application/json")
     @GET("paymentAndroid/")
     Call<PaymentsPojo> paymentCall();
+
+    @Headers("Content-Type: application/json")
+    @GET("deleteAndroid/{id}")
+    Call<Void> deleteFileCall(@Path("id") String id);
 }

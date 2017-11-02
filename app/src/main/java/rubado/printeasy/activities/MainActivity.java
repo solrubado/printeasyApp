@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity
                     });
                 } else if (response.isSuccessful()) {
                     DocumentsPojo documentsPojo = response.body();
-                    sessionsAdapter = new FileRowAdapter(getApplicationContext(), getApplication(), documentsPojo.getDocuments());
+                    sessionsAdapter = new FileRowAdapter(MainActivity.this, getApplication(), documentsPojo.getDocuments());
                     mFileLists.setAdapter(sessionsAdapter);
 
 
@@ -316,6 +316,7 @@ public class MainActivity extends AppCompatActivity
                             Toast.makeText(mApp, "Archivo subido exitosamente", Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(MainActivity.this, MainActivity.class);
                             startActivity(i);
+                            finish();
                         }
                     });
                     sessionsAdapter.notifyDataSetChanged();
@@ -339,6 +340,50 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
+    public void deleteDocument(String id) {
+        Log.e("Document id ", id);
+        Call<Void> deleteFileCall = mApp.getAPI().deleteFileCall(id);
+
+        deleteFileCall.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code() >= 400 && response.code() <= 500) {
+                    Log.e("MainActivity", response.code() + " " + response.message());
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(MainActivity.this, getString(R.string.delete_file_error), Toast.LENGTH_LONG).show();
+
+                        }
+                    });
+                } else if (response.isSuccessful()) {
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(mApp, "Archivo eliminado exitosamente", Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(MainActivity.this, MainActivity.class);
+                            startActivity(i);
+                            finish();
+                        }
+                    });
+                    sessionsAdapter.notifyDataSetChanged();
+
+                } else {
+                    Log.e("MainActivity", "Mensaje: " + response.code());
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(MainActivity.this, getString(R.string.delete_file_error), Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("MainActivity", t.getMessage());
+
+            }
+
+        });
+    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override

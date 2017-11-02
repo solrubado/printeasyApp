@@ -46,7 +46,7 @@ public class AlreadyPrintedActivity extends AppCompatActivity {
                     });
                 } else if (response.isSuccessful()) {
                     DocumentsPojo documentsPojo = response.body();
-                    FileRowAdapter sessionsAdapter = new FileRowAdapter(getApplicationContext(), getApplication(), documentsPojo.getDocuments());
+                    FileRowAdapter sessionsAdapter = new FileRowAdapter(AlreadyPrintedActivity.this, getApplication(), documentsPojo.getDocuments());
                     mFileLists.setAdapter(sessionsAdapter);
 
 

@@ -4,7 +4,7 @@ package rubado.printeasy.Pojos;
  * Created by MariaSol on 06/09/2016.
  */
 public class FilePojo {
-    private String _id;
+    private String id;
     private String name;
     private int username;
     private boolean isPrinted;
@@ -42,11 +42,11 @@ public class FilePojo {
     }
 
     public String getId() {
-        return _id;
+        return id;
     }
 
     public void setId(String id) {
-        this._id = id;
+        this.id = id;
     }
 
     public String getPrinted_at() {
