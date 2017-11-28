@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    tools:context="rubado.printeasy.activities.DashboardActivity">
+
+
+    <TextView
+        android:id="@+id/alreadyPrintedTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70sp"
+        android:text="Dashboard"
+        android:layout_gravity="center_horizontal"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#011833"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:weightSum="3"
+        android:orientation="horizontal">
+
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:text="Tinta color"/>
+
+        <ProgressBar
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="85sp"
+            android:layout_height="wrap_content"
+            android:indeterminate="false"
+            android:layout_weight="1"
+            android:id="@+id/progressBarInkColor"
+            android:max="100"
+            android:progress="0"
+            android:theme="@style/LinearProgress"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/percentageInkTricolor"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:weightSum="3"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginRight="10dp"
+            android:text="Tinta negra"/>
+
+        <ProgressBar
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="85sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:indeterminate="false"
+            android:id="@+id/progressBarInkBlack"
+            android:max="100"
+            android:progress="0"
+            android:theme="@style/LinearProgress"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/percentageInkBlack"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:weightSum="3"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Hojas Disponibles"
+            android:layout_marginRight="10dp"/>
+
+        <ProgressBar
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="85sp"
+            android:layout_height="20dp"
+            android:indeterminate="false"
+            android:layout_weight="1"
+            android:id="@+id/progressBarPages"
+            android:max="500"
+            android:progress="0"
+            android:theme="@style/LinearProgress"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:id="@+id/percentagePages"/>
+    </LinearLayout>
+
+</LinearLayout>

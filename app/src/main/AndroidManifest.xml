@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="rubado.printeasy">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
+        android:name=".PrintEasyApplication"
         android:allowBackup="true"
+        android:grantUriPermissions="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:grantUriPermissions="true"
-        android:name=".PrintEasyApplication"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.LoginActivity">
@@ -21,16 +23,21 @@
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme" >
-        </activity>
-        <activity android:name=".activities.AlreadyPrintedActivity"
-            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.AlreadyPrintedActivity"
             android:label="Historial"
-            android:theme="@style/AppThemeActionBar"/>
-        <activity android:name=".activities.Payments"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/AppThemeActionBar" />
+        <activity
+            android:name=".activities.Payments"
             android:label="Pagos"
             android:parentActivityName=".activities.MainActivity"
-            android:theme="@style/AppThemeActionBar"/>
+            android:theme="@style/AppThemeActionBar" />
+        <activity
+            android:name=".activities.DashboardActivity"
+            android:label="@string/title_activity_dashboard"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

@@ -11,6 +11,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
+import rubado.printeasy.Pojos.DashboardPojo;
 import rubado.printeasy.Pojos.DocumentsPojo;
 import rubado.printeasy.Pojos.LoginPojo;
 import rubado.printeasy.Pojos.PaymentPojo;
@@ -50,4 +51,8 @@ public interface PlatformAPI {
     @Headers("Content-Type: application/json")
     @GET("isPrinterInUse")
     Call<PrinterQueuePojo> isPrinterInUseCall();
+
+    @Headers("Content-Type: application/json")
+    @GET("dashboardAndroid")
+    Call<DashboardPojo> dashboardCall();
 }

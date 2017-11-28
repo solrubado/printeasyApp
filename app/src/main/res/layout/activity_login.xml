@@ -63,6 +63,7 @@
         android:layout_height="wrap_content"
         android:textColorHint="#fff"
         app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@android:color/white"
         android:layout_below="@+id/usernameTI"
         android:layout_centerHorizontal="true">
 

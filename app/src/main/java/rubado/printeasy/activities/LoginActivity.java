@@ -64,9 +64,15 @@ public class LoginActivity extends AppCompatActivity {
                                     });
 
                                 } else if (response.isSuccessful()) {
+                                    if(userEmail.getText().toString().equals("123456")){
+                                        Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
+                                        startActivity(i);
+                                        finish();
+                                    }else{
                                     Intent i = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(i);
                                     finish();
+                                    }
                                 } else {
                                     hideProgressBar();
                                     Log.e("LoginActivity", "Mensaje: " + response.code());

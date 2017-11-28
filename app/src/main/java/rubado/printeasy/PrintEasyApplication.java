@@ -28,7 +28,7 @@ public class PrintEasyApplication extends Application {
             OkHttpClient httpClient = new OkHttpClient();
 
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://192.168.0.225:3000/")
+                    .baseUrl("http://192.168.0.23:3000/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(httpClient)
                     .build();

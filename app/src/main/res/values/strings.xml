@@ -69,4 +69,5 @@
     <string name="login_error_message">Error al obtener el usuario</string>
     <string name="user_error_message">Error al obtener los documentos</string>
     <string name="delete_file_error">Error al eliminar el archivo</string>
+    <string name="title_activity_dashboard">Dashboard</string>
 </resources>
